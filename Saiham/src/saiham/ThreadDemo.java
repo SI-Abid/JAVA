@@ -1,6 +1,12 @@
 package saiham;
 //Driver class
 public class ThreadDemo {
+
+    //constructor
+    public ThreadDemo() {
+        main(new String[]{"Saiham"});
+    }
+    
     public static void main(String[] args) {
         new NewThread();
 

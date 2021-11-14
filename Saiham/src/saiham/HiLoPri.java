@@ -2,6 +2,12 @@ package saiham;
 
 //Driver class
 public class HiLoPri {
+
+    //constructor
+    public HiLoPri() {
+        main(new String[]{"Saiham"});
+    }
+    
     public static void main(String[] args) {
         Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
         Clicker hi = new Clicker(Thread.NORM_PRIORITY + 2);

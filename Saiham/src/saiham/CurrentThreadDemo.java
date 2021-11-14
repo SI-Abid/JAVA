@@ -2,6 +2,12 @@ package saiham;
 
 //Driver class
 public class CurrentThreadDemo {
+    
+    //constructor
+    public CurrentThreadDemo() {
+        main(new String[]{"Saiham"});
+    }
+    
     public static void main(String[] args) {
         Thread t = Thread.currentThread();
 

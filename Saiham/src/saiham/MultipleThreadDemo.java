@@ -2,6 +2,12 @@ package saiham;
 
 //Driver class
 public class MultipleThreadDemo {
+
+    //constructor
+    public MultipleThreadDemo() {
+        main(new String[]{"Saiham"});
+    }
+    
     public static void main(String[] args) {
         new NewThread("Sukanto");
         new NewThread("Abid");

@@ -2,6 +2,12 @@ package saiham;
 
 //Driver class
 public class DemoJoin {
+
+    //constructor
+    public DemoJoin() {
+        main(new String[]{"Saiham"});
+    }
+    
     public static void main(String[] args) {
         NewThreadJoin t1 = new NewThreadJoin("Thread 1");
         NewThreadJoin t2 = new NewThreadJoin("Thread 2");

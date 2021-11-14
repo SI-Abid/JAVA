@@ -2,6 +2,12 @@ package saiham;
 
 //Driver class
 public class ExtendThread {
+
+    //constructor
+    public ExtendThread() {
+        main(new String[]{"Saiham"});
+    }
+    
     public static void main(String[] args) {
         new NewThreadTwo();
 
