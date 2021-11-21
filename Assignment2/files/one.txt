@@ -1,0 +1,6 @@
+THis is line one
+this is line two
+this is line three
+Hello World
+copy all lines into a new file
+name of the new file is given as an argument
