@@ -1,0 +1,5 @@
+Hello world
+This is the second text 
+in Notepad Java Swing Project
+TEST#002
+added file save functionality
