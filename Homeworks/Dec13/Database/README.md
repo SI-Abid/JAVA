@@ -1,18 +1,11 @@
-## Getting Started
+## Getting Started with JDBC
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Well, we're going to be using the [Java Database Connectivity API](https://docs.oracle.com/javase/8/docs/api/java/sql/package-summary.html) to connect to a database.
 
-## Folder Structure
+## Requirements
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+1. Install JDBC drivers for your database.
+2. Create a database.
+3. Create a table in the database.
+4. Add the JDBC driver to your project.
+5. Connect to the database.
