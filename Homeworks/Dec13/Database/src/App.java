@@ -1,52 +1,86 @@
 import java.sql.*;
-import java.util.Scanner;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class App {
     public static void main(String[] args) {
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Project", "root", null);
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", null);
             Statement stmt = con.createStatement();
             
-            // Scanner sc = new Scanner(System.in);
+            // create frame
+            JFrame frame = new JFrame("Project");
+            frame.setSize(500, 600);
+            frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             
-            // // create table students
-            // String sql = "CREATE TABLE IF NOT EXISTS students (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(255), age INT, PRIMARY KEY (id))";
-            // stmt.executeUpdate(sql);
+            // create panel
+            JPanel p1 = new JPanel();
+            JLabel l1 = new JLabel("Full Name");
+            JTextField t1 = new JTextField(20);
+            JLabel l2 = new JLabel("Age");
+            JTextField t2 = new JTextField(5);
+            JButton b1 = new JButton("Add User");
+            p1.add(l1);
+            p1.add(t1);
+            p1.add(l2);
+            p1.add(t2);
+            p1.add(b1);
+            frame.add(p1);
 
-            // // insert data
-            // System.out.println("Insert data");
-            // System.out.print("Name: ");
-            // String name = sc.nextLine();
-            // System.out.print("Age: ");
-            // int age = sc.nextInt();
-            // sc.nextLine();
-            // sql = "INSERT INTO students (name, age) VALUES ('" + name + "', " + age + ")";
-            // stmt.executeUpdate(sql);
+            // create panel
+            JPanel p2 = new JPanel();
+            JLabel l3 = new JLabel("User Table");
+            JTable table = new JTable();
+            JScrollPane scrollPane = new JScrollPane(table);
+            p2.add(l3);
+            p2.add(scrollPane);
+            frame.add(p2);
 
-            // // print students table data
-            // System.out.println("\nStudents table data");
-
-            String sql = "SELECT * FROM instructor";
-            ResultSet rs = stmt.executeQuery(sql);
-            System.out.println("\n\tInstructor table data");
-            System.out.println("==============================================");
-            /**
-             * print the table header
-             */
-            System.out.println("ID\tName\t\tDepartment\tSalary");
+            // manually add data to table
+            String[] columnNames = {"Name", "Age"};
+            ResultSet rs = stmt.executeQuery("SELECT * FROM students");
+            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
             while (rs.next()) {
-                String value = String.format("%d\t%-10s\t%-10s\t%d", rs.getInt("id"), rs.getString("name"), rs.getString("dept_name"), rs.getInt("salary"));
-                System.out.println(value);
+                String name = rs.getString("name");
+                int age = rs.getInt("age");
+                model.addRow(new Object[] {name, age});
             }
-            System.out.println("==============================================\n");
+            table.setModel(model);
+            
+            // add action listener
 
-            // sc.close();
+            b1.addActionListener(e -> {
+                try {
+                    Connection con2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", null);
+                    Statement stmt2 = con2.createStatement();
+                    String name = t1.getText();
+                    String age = t2.getText();
+                    if(name.equals("") || age.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Please fill in all fields");
+                    } else {
+                        stmt2.executeUpdate("INSERT INTO user (name, age) VALUES ('" + name + "', " + age + ")");
+                        model.addRow(new Object[] {name, age});
+                        t1.setText("");
+                        t2.setText("");
+                        // add new row to table
+                        JOptionPane.showMessageDialog(null, "User added");
+                        
+                    }
+                    con2.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            });
+            
+            frame.setVisible(true);
             con.close();
+
         } catch (Exception e) {
             System.out.println(e);
         }
-
+        
     }
 }
