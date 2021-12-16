@@ -7,9 +7,13 @@ public class App {
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", null);
+            Connection con = DriverManager.getConnection("jdbc:mysql://sql6.freesqldatabase.com:3306/sql6459007", "sql6459007", "bAXluqI4Sv");
             Statement stmt = con.createStatement();
-            
+
+            // create student table if not exists
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS students (id INTEGER PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), age INTEGER)");
+            // delete student table if exists
+            // stmt.executeUpdate("DROP TABLE IF EXISTS student");
             // create frame
             JFrame frame = new JFrame("Project");
             frame.setSize(500, 600);
@@ -54,14 +58,14 @@ public class App {
 
             b1.addActionListener(e -> {
                 try {
-                    Connection con2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", null);
+                    Connection con2 = DriverManager.getConnection("jdbc:mysql://sql6.freesqldatabase.com:3306/sql6459007", "sql6459007", "bAXluqI4Sv");
                     Statement stmt2 = con2.createStatement();
                     String name = t1.getText();
                     String age = t2.getText();
                     if(name.equals("") || age.equals("")) {
                         JOptionPane.showMessageDialog(null, "Please fill in all fields");
                     } else {
-                        stmt2.executeUpdate("INSERT INTO user (name, age) VALUES ('" + name + "', " + age + ")");
+                        stmt2.executeUpdate("INSERT INTO students (name, age) VALUES ('" + name + "', " + age + ")");
                         model.addRow(new Object[] {name, age});
                         t1.setText("");
                         t2.setText("");
