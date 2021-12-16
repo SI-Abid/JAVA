@@ -6,6 +6,7 @@
 Simple calculator with basic operations.
 
 ```
+
 ---------------------------------------
 | ----------------------------------- |
 | | 1 + 2 + 5                       | |
@@ -28,4 +29,3 @@ Simple calculator with basic operations.
 ---------------------------------------
 
 ```
-
