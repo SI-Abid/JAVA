@@ -3,11 +3,9 @@
 
 ### Description 
 
-
-    Simple calculator with basic operations.
+Simple calculator with basic operations.
 
 ```
-
 ---------------------------------------
 | ----------------------------------- |
 | | 1 + 2 + 5                       | |
