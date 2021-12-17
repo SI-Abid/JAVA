@@ -1,9 +1,13 @@
 import java.util.ArrayList;
+import java.math.BigDecimal;
 
-import java.awt.GridLayout;
 import java.awt.Font;
 import java.awt.event.*;
-import java.math.BigDecimal;
+import java.awt.Toolkit;
+import java.awt.GridLayout;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+
 
 import javax.swing.*;
 
@@ -36,7 +40,7 @@ public class Calculator {
         output.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
         output.setHorizontalAlignment(JTextField.RIGHT);
         output.setEditable(false);
-
+        
         top.add(input);
         top.add(output);
 
@@ -103,6 +107,15 @@ public class Calculator {
             }
         });
 
+        // copy to clipboard if output is clicked
+        output.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                StringSelection selection = new StringSelection(output.getText());
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(selection, selection);
+            }
+        });
+
         frame.add(top);
         frame.add(bottomLeft);
         frame.add(bottomRight);
@@ -112,36 +125,55 @@ public class Calculator {
     }
 
     public static String calculate(String expresion) {
-        BigDecimal result = new BigDecimal(0);
-        String numerics[]=expresion.split("[-+/*%]+");
-        String operators[]=expresion.split("[0-9]");
-        BigDecimal numbers[]=new BigDecimal[numerics.length];
+        try {
+            // remove all spaces
+            expresion = expresion.replaceAll("\\s+", "");
+            
+            // System.out.println(expresion);
+            // System.out.println(expresion.length());
+            BigDecimal result = new BigDecimal(0);
+            String numerics[]=expresion.split("[-+/*%]+");
+            String operators[]=expresion.split("[0-9]+");
+            BigDecimal numbers[]=new BigDecimal[numerics.length];
 
-        for(int i=0;i<numerics.length;i++) {
-            numbers[i]=new BigDecimal(numerics[i]);
-        }
-        result=numbers[0];
-        int i=0;
-        for(String operator : operators) {
-            switch(operator) {
-                case "+":
-                    result=result.add(numbers[i+1]);
-                    break;
-                case "-":
-                    result=result.subtract(numbers[i+1]);
-                    break;
-                case "*":
-                    result=result.multiply(numbers[i+1]);
-                    break;
-                case "/":
-                    result=result.divide(numbers[i+1]);
-                    break;
-                case "%":
-                    result=result.remainder(numbers[i+1]);
-                    break;
+            for(int i=0;i<numerics.length;i++) {
+                numbers[i]=new BigDecimal(numerics[i]);
+                // System.out.println(numbers[i]);
             }
+            result=numbers[0];
+            int i=0;
+
+            for(String operator : operators) {
+                switch(operator) {
+                    case "+":
+                        result=result.add(numbers[++i]);
+                        break;
+                    case "-":
+                        result=result.subtract(numbers[++i]);
+                        break;
+                    case "*":
+                        result=result.multiply(numbers[++i]);
+                        break;
+                    case "/":
+                        result=result.divide(numbers[++i]);
+                        break;
+                    case "%":
+                        result=result.remainder(numbers[++i]);
+                        break;
+                    case "**":
+                        result=result.pow(numbers[++i].intValue());
+                        break;
+                }
+            }
+            
+            return result.toString();
+        } 
+        catch (ArithmeticException e) {
+            return "Math ERROR";
         }
-        return String.valueOf(result);
+        catch (Exception e) {
+            return "Syntax ERROR";
+        }
     }
 
     public static void main(String[] args) throws Exception {
