@@ -5,7 +5,7 @@
 
     Simple calculator with basic operations.
 
-### Prototye
+### Prototype
 
 ```
 ---------------------------------------
