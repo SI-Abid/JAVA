@@ -3,10 +3,11 @@
 
 ### Description 
 
-Simple calculator with basic operations.
+    Simple calculator with basic operations.
+
+### Prototype
 
 ```
-
 ---------------------------------------
 | ----------------------------------- |
 | | 1 + 2 + 5                       | |
@@ -27,5 +28,7 @@ Simple calculator with basic operations.
 | |   0   |   .   |  DEL  |  |  =  |  |
 | -------------------------  -------  |
 ---------------------------------------
+``` 
 
-```
+### Version_1.1
+![Calculator_v1](https://cdn.discordapp.com/attachments/688276195564847135/921283777559404584/263050348_977550119511869_7605624554435422008_n.png)
