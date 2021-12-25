@@ -7,7 +7,8 @@ public class App {
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://sql6.freesqldatabase.com:3306/sql6459007", "sql6459007", "bAXluqI4Sv");
+            String pwd = "YOUR_DATABASE_PASSWORD_HERE";
+            Connection con = DriverManager.getConnection("jdbc:mysql://sql6.freesqldatabase.com:3306/sql6459007", "sql6459007", pwd);
             Statement stmt = con.createStatement();
 
             // create student table if not exists
