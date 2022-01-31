@@ -7,10 +7,11 @@ public class App {
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String pwd = "YOUR_DATABASE_PASSWORD_HERE";
-            Connection con = DriverManager.getConnection("jdbc:mysql://sql6.freesqldatabase.com:3306/sql6459007", "sql6459007", pwd);
+            // String pwd = "YOUR_DATABASE_PASSWORD_HERE";
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql", "root", "");
             Statement stmt = con.createStatement();
-
+            stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS test");
+            stmt.executeUpdate("USE test");
             // create student table if not exists
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS students (id INTEGER PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255), age INTEGER)");
             // delete student table if exists
@@ -59,7 +60,7 @@ public class App {
 
             b1.addActionListener(e -> {
                 try {
-                    Connection con2 = DriverManager.getConnection("jdbc:mysql://sql6.freesqldatabase.com:3306/sql6459007", "sql6459007", "bAXluqI4Sv");
+                    Connection con2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
                     Statement stmt2 = con2.createStatement();
                     String name = t1.getText();
                     String age = t2.getText();
