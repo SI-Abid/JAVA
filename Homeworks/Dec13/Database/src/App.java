@@ -1,6 +1,7 @@
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.*;
 
 public class App {
     public static void main(String[] args) {
@@ -78,6 +79,53 @@ public class App {
                     con2.close();
                 } catch (Exception ex) {
                     ex.printStackTrace();
+                }
+            });
+
+            // add action listener to table
+            table.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+                    // if(e.getButton()==MouseEvent.BUTTON1) {
+
+                    //     int row = table.getSelectedRow();
+                    //     // delete this row
+                    //     String name = table.getValueAt(row, 0).toString();
+                    //     String age = table.getValueAt(row, 1).toString();
+                    //     int age2 = Integer.parseInt(age);
+                    //     try {
+                    //         Connection con3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
+                    //         Statement stmt3 = con3.createStatement();
+                    //         stmt3.executeUpdate("DELETE FROM students WHERE name = '" + name + "' AND age = " + age2);
+                    //         model.removeRow(row);
+                    //         JOptionPane.showMessageDialog(null, "User deleted");
+                    //         con3.close();
+                    //     } catch (Exception ex) {
+                    //         ex.printStackTrace();
+                    //     }
+                    // }
+                    // if click button is right click
+
+                    if(e.getButton()==MouseEvent.BUTTON1) {
+                        int row = table.getSelectedRow();
+                        // edit this row
+                        String name = table.getValueAt(row, 0).toString();
+                        String age = table.getValueAt(row, 1).toString();
+                        int age2 = Integer.parseInt(age);
+                        String newName = JOptionPane.showInputDialog(null, "Name: " + name);
+                        int newAge = Integer.parseInt(JOptionPane.showInputDialog(null, "Age: " + age));
+
+                        try {
+                            Connection con3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
+                            Statement stmt3 = con3.createStatement();
+                            stmt3.executeUpdate("UPDATE students SET name = '" + newName + "', age = " + newAge + " WHERE name = '" + name + "' AND age = " + age2);
+                            JOptionPane.showMessageDialog(null, "User updated");
+                            con3.close();
+                            table.setValueAt(newName, row, 0);
+                            table.setValueAt(newAge, row, 1);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
                 }
             });
             
